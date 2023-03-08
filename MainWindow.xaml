@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Canvas>
-        <RichTextBox Height="343" Width="379" Canvas.Left="230" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <RichTextBox Height="434" Width="800" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20">
             <FlowDocument>
                 <Paragraph>
                     <Run x:Name="runDisplay"  Text="RichTextBox"/>

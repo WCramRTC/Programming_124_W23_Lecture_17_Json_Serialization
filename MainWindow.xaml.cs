@@ -25,22 +25,66 @@ namespace Programming_124_W23_Lecture_17_Json_Serialization
     /// </summary>
     public partial class MainWindow : Window
     {
-   
+        List<Name> names = new List<Name>();
 
         public MainWindow()
         {
             InitializeComponent();
 
-            Name name = new Name("Will");
+            string filePath = "teamRoster.json";
+            string teamString = File.ReadAllText(filePath);
+            TeamRoster seahawks = JsonSerializer.Deserialize<TeamRoster>(teamString);
 
-            Serialize(name, "nameBinary.bin");
-            
-            
+            runDisplay.Text = seahawks.Players[2].ToString();
+
+            // Write Json
+            // FIle Path
+            // string jsonObject = JsonSerializer.Serialize(object)
+            // File.WriteAllText(filePath, jsonObject);
+
+            // Read
+            // File Path
+            // string fileText = File.ReadAllText(filePath);
+            // object deseralizedObject = JsonSerializer.Deserialize<object>(fileText);
+
         }
+
+        public void SerilizedTeamRoster()
+        {
+            Manager bander = new Manager("Bander", 1233545456);
+            TeamRoster seahawks = new TeamRoster("Seahawks", "Seattle", bander);
+
+            seahawks.AddPlayer(new Player("Zak", "1"));
+            seahawks.AddPlayer(new Player("Sam", "2"));
+            seahawks.AddPlayer(new Player("Suleman", "3"));
+
+            JsonSerializerOptions jso = new JsonSerializerOptions()
+            {
+                WriteIndented = true
+            };
+
+            string jsonTeam = JsonSerializer.Serialize(seahawks, jso);
+
+            File.WriteAllText("teamRoster.json", jsonTeam);
+        }
+
+
+
 
         #region BinaryExample
 
-        public void Serialize(Name name, string filePath )
+        public void BinaryExample()
+        {
+            string filePath = "names.bin";
+
+            names.Add(new Name("Will", "Password_DontSeeMe"));
+
+            Serialize(names, filePath);
+            //Deserialize(filePath);
+
+        }
+
+        public void Serialize(List<Name> name, string filePath )
         {
             //Create the stream to add object into it.  
             System.IO.Stream ms = File.OpenWrite(filePath);
@@ -63,15 +107,50 @@ namespace Programming_124_W23_Lecture_17_Json_Serialization
             FileStream fs = File.Open(filename, FileMode.Open);
 
             object obj = formatter.Deserialize(fs);
-            Name name = (Name)obj;
+            names = (List<Name>)obj;
             fs.Flush();
             fs.Close();
             fs.Dispose();
-            MessageBox.Show(name.UserName);
+            
         }
         #endregion
 
         #region JsonExample
+
+        public void JsonExample()
+        {
+            names.Add(new Name("Bander", "23456"));
+            names.Add(new Name("Zach", "56557"));
+            names.Add(new Name("Sam", "345347"));
+            names.Add(new Name("Suleman", "23345456"));
+
+
+            JsonSerializerOptions options = new JsonSerializerOptions()
+            {
+                WriteIndented = true
+            };
+
+            string jsonBander = JsonSerializer.Serialize(names, options);
+
+            runDisplay.Text = jsonBander;
+
+            // ---- Read file back
+            // File destination
+            string filePath = "listOfName.json";
+            // Reads all text from file
+            string listFromFile = File.ReadAllText(filePath);
+            // COnverts text to List of Name
+            names = JsonSerializer.Deserialize<List<Name>>(listFromFile);
+
+
+            foreach (Name name in names)
+            {
+                runDisplay.Text += name + "\n";
+            }
+
+
+            //File.WriteAllText(filePath, jsonBander);
+        }
 
         //List<PlayerInformation> players = new List<PlayerInformation>();
         //List<TestClass> tcs = new List<TestClass>();
@@ -109,16 +188,34 @@ namespace Programming_124_W23_Lecture_17_Json_Serialization
 
     }
 
-    [Serializable]
+    // At the top of my class, I add whats known as a data annotation
+    // [Serializable]
+ 
     public class Name
     {
         string _userName;
 
-        public Name(string name)
+        //[NonSerialized]
+        string _password;
+
+        public Name(string name, string password)
         {
             _userName = name;
+            _password = password;
         }
 
+        public Name()
+        {
+
+        }
+
+        public string Password { get => _password; set => _password = value; }
         public string UserName { get => _userName; set => _userName = value; }
+  
+
+        public override string ToString()
+        {
+            return $"{UserName}";
+        }
     }
 }
