@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Programming_124_W23_Lecture_17_Json_Serialization
+namespace Programming_124_W23_Lecture_17_Json_Serialization.Examples
 {
     internal class PlayerInformation
     {

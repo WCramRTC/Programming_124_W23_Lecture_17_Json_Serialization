@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Text.Json;
 using System.IO;
 using System.Text.Json.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using Newtonsoft;
 
 namespace Programming_124_W23_Lecture_17_Json_Serialization
@@ -29,13 +30,48 @@ namespace Programming_124_W23_Lecture_17_Json_Serialization
         public MainWindow()
         {
             InitializeComponent();
+
+            Name name = new Name("Will");
+
+            Serialize(name, "nameBinary.bin");
             
-
-
             
         }
 
-        #region Example
+        #region BinaryExample
+
+        public void Serialize(Name name, string filePath )
+        {
+            //Create the stream to add object into it.  
+            System.IO.Stream ms = File.OpenWrite(filePath);
+            //Format the object as Binary  
+
+            BinaryFormatter formatter = new BinaryFormatter();
+            //It serialize the employee object  
+            formatter.Serialize(ms, name);
+            ms.Flush();
+            ms.Close();
+            ms.Dispose();
+        }
+
+        public void Deserialize(string filename)
+        {
+            //Format the object as Binary  
+            BinaryFormatter formatter = new BinaryFormatter();
+
+            //Reading the file from the server  
+            FileStream fs = File.Open(filename, FileMode.Open);
+
+            object obj = formatter.Deserialize(fs);
+            Name name = (Name)obj;
+            fs.Flush();
+            fs.Close();
+            fs.Dispose();
+            MessageBox.Show(name.UserName);
+        }
+        #endregion
+
+        #region JsonExample
 
         //List<PlayerInformation> players = new List<PlayerInformation>();
         //List<TestClass> tcs = new List<TestClass>();
@@ -71,5 +107,18 @@ namespace Programming_124_W23_Lecture_17_Json_Serialization
         //File.WriteAllText(fileName, jsonString);
         #endregion
 
+    }
+
+    [Serializable]
+    public class Name
+    {
+        string _userName;
+
+        public Name(string name)
+        {
+            _userName = name;
+        }
+
+        public string UserName { get => _userName; set => _userName = value; }
     }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Programming_124_W23_Lecture_17_Json_Serialization
+namespace Programming_124_W23_Lecture_17_Json_Serialization.Examples
 {
     internal class TestClass
     {
@@ -19,11 +19,11 @@ namespace Programming_124_W23_Lecture_17_Json_Serialization
             _name = name;
             _lastName = lastName;
 
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 grades.Add(rand.Next(0, 101));
             }
-            
+
         }
 
         public string Name { get => _name; set => _name = value; }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace Programming_124_W23_Lecture_17_Json_Serialization
+namespace Programming_124_W23_Lecture_17_Json_Serialization.Examples
 {
     internal class JsonExample
     {
@@ -41,9 +41,9 @@ namespace Programming_124_W23_Lecture_17_Json_Serialization
 
             string fileName = "player.json";
             string jsonString = JsonSerializer.Serialize(player1);
-           //File.WriteAllText(fileName, jsonString);
+            //File.WriteAllText(fileName, jsonString);
 
-           // runDisplay.Text = jsonString; 
+            // runDisplay.Text = jsonString; 
         }
     }
 }

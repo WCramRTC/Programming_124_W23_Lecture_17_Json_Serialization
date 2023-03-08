@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Programming_124_W23_Lecture_17_Json_Serialization"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <RichTextBox Height="NaN" Margin="230,38,230,37" Width="NaN">
+    <Canvas>
+        <RichTextBox Height="343" Width="379" Canvas.Left="230" Canvas.Top="38" HorizontalAlignment="Center" VerticalAlignment="Top">
             <FlowDocument>
                 <Paragraph>
                     <Run x:Name="runDisplay"  Text="RichTextBox"/>
@@ -15,5 +15,5 @@
             </FlowDocument>
         </RichTextBox>
 
-    </Grid>
+    </Canvas>
 </Window>
