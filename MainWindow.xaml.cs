@@ -24,17 +24,52 @@ namespace Programming_124_W23_Lecture_17_Json_Serialization
     /// </summary>
     public partial class MainWindow : Window
     {
-        List<PlayerInformation> players = new List<PlayerInformation>();
+   
+
         public MainWindow()
         {
             InitializeComponent();
+            
 
 
-            string listOfPlayers = JsonSerializer.Serialize(players);
-
-            runDisplay.Text = listOfPlayers;
+            
         }
 
+        #region Example
+
+        //List<PlayerInformation> players = new List<PlayerInformation>();
+        //List<TestClass> tcs = new List<TestClass>();
+        //string fileName = "userInfo.json";
+
+        //public void Serialize()
+        //{
+        //    tcs.Add(new TestClass("Will", "Cram"));
+        //    tcs.Add(new TestClass("Anne", "Nguyen"));
+
+        //    JsonSerializerOptions jso = new JsonSerializerOptions()
+        //    {
+        //        WriteIndented = true
+        //    };
+
+        //    string json = JsonSerializer.Serialize(tcs, jso);
+
+        //    runDisplay.Text = json;
+
+        //    File.WriteAllText(fileName, json);
+        //}
+
+        //public void Deserialize()
+        //{
+        //    string jsonString = File.ReadAllText(fileName);
+        //    tcs = JsonSerializer.Deserialize<List<TestClass>>(jsonString);
+
+        //    MessageBox.Show(tcs.Count.ToString());
+        //}
+
+        //string fileName = "WeatherForecast.json";
+        //string jsonString = JsonSerializer.Serialize(weatherForecast);
+        //File.WriteAllText(fileName, jsonString);
+        #endregion
 
     }
 }
